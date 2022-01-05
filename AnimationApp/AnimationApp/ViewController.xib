@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="AnimationApp" customModuleProvider="target">
             <connections>
+                <outlet property="textLabel" destination="TuD-mo-l0F" id="vi9-rh-lqe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,21 +19,24 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" id="vEJ-fq-90U">
-                    <rect key="frame" x="88" y="385" width="238" height="126"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.23921570180000001" green="0.46666663889999999" blue="0.52549022440000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                    <color key="textColor" red="0.89222301136363635" green="0.89222301136363635" blue="0.89222301136363635" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="84"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TuD-mo-l0F">
+                    <rect key="frame" x="0.0" y="292" width="414" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="0vJ-Fh-YZz"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="65"/>
+                    <color key="textColor" red="0.89222301140000004" green="0.89222301140000004" blue="0.89222301140000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="e8g-RZ-hKi">
                     <rect key="frame" x="139" y="807" width="136" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="tintColor" red="0.89222301136363635" green="0.48019261956160864" blue="0.33229893827143991" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled">
+                        <backgroundConfiguration key="background">
+                            <color key="backgroundColor" red="0.89222301140000004" green="0.48019261959999998" blue="0.33229893830000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </backgroundConfiguration>
                         <attributedString key="attributedTitle">
                             <fragment content="Push!">
                                 <attributes>
@@ -48,6 +52,11 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.23921570180000001" green="0.46666663889999999" blue="0.52549022440000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="TuD-mo-l0F" secondAttribute="bottom" constant="500" id="glb-Wd-SVz"/>
+                <constraint firstItem="TuD-mo-l0F" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="jr1-eE-qcu"/>
+                <constraint firstItem="TuD-mo-l0F" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pj4-w6-WDZ"/>
+            </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="109.82142857142857"/>
         </view>
     </objects>

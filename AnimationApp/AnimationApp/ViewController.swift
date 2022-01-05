@@ -9,16 +9,16 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBAction func pushButton(_ sender: UIButton) {
-    }
-
+    
+    @IBOutlet weak var textLabel: UILabel!
+    var pushCounter = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-    @IBAction func showMessage() {
-        print("Button is pressed!")
+    @IBAction func pushButton(_ sender: Any) {
+        pushCounter += 1
+        self.textLabel.text = String(pushCounter)
     }
 }
