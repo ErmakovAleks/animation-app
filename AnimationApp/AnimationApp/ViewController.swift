@@ -34,20 +34,20 @@ class ViewController: UIViewController {
 
     @IBAction func pushButton(_ sender: Any) {
         if let safeAreaSize = safeAreaSize {
-            animateMovement(startPosition: (x: view.safeAreaLayoutGuide.layoutFrame.origin.x,
+            animateMovementAlongX(startPosition: (x: view.safeAreaLayoutGuide.layoutFrame.origin.x,
                                             y: view.safeAreaLayoutGuide.layoutFrame.origin.y),
                             finishPosition: (x: safeAreaSize.x,
                                              y: view.safeAreaLayoutGuide.layoutFrame.origin.y))
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.animateMovement(startPosition: (x: safeAreaSize.x,
+                self.animateMovementAlongY(startPosition: (x: safeAreaSize.x,
                                                      y: self.view.safeAreaLayoutGuide.layoutFrame.origin.y),
                                 finishPosition: (x: safeAreaSize.x, y: safeAreaSize.y))
             }
         }
     }
     
-    func animateMovement(startPosition: (x: CGFloat, y: CGFloat), finishPosition: (x: CGFloat, y: CGFloat)) {
+    func animateMovementAlongX(startPosition: (x: CGFloat, y: CGFloat), finishPosition: (x: CGFloat, y: CGFloat)) {
         let animation = CABasicAnimation()
         animation.keyPath = "position.x"
         animation.fromValue = startPosition.x + self.sideSize / 2
@@ -56,6 +56,18 @@ class ViewController: UIViewController {
         if let square = square {
             square.layer.add(animation, forKey: "basic")
             square.layer.position = CGPoint(x: finishPosition.x - self.sideSize / 2, y: finishPosition.y + self.sideSize / 2)
+        }
+    }
+    
+    func animateMovementAlongY(startPosition: (x: CGFloat, y: CGFloat), finishPosition: (x: CGFloat, y: CGFloat)) {
+        let animation = CABasicAnimation()
+        animation.keyPath = "position.y"
+        animation.fromValue = startPosition.y + self.sideSize / 2
+        animation.toValue = finishPosition.y - self.sideSize / 2
+        animation.duration = 1
+        if let square = square {
+            square.layer.add(animation, forKey: "basic")
+            square.layer.position = CGPoint(x: finishPosition.x - self.sideSize / 2, y: finishPosition.y - self.sideSize / 2)
         }
     }
 }
