@@ -10,58 +10,52 @@ import UIKit
 class ViewController: UIViewController {
     
     let sideSize = 100.0
-    var startPosition: (x: CGFloat, y: CGFloat)?
-    var finishPosition: (x: CGFloat, y: CGFloat)?
     var square: UIView?
-    var n = 3
-    
-    
+    var safeAreaSize: (x: CGFloat, y: CGFloat)? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        safeAreaSize = (x: view.safeAreaLayoutGuide.layoutFrame.width,
+                        y: view.safeAreaLayoutGuide.layoutFrame.height)
         
-//        let window = UIApplication.shared.windows.first
-//        let topPadding = window?.safeAreaInsets.top
-        
-        self.square  = UIView(frame: CGRect(
-            x: 0,
-            y: 44 ?? 0,
-            width: self.sideSize,
-            height: self.sideSize))
-        square?.backgroundColor = UIColor(red: 0.91, green: 0.4, blue: 0.45, alpha: 1.0)
-        if let square = square {
-            view.addSubview(square)
+                self.square  = UIView(frame: CGRect(
+                    x: view.safeAreaLayoutGuide.layoutFrame.origin.x,
+                    y: view.safeAreaLayoutGuide.layoutFrame.origin.y,
+                    width: self.sideSize,
+                    height: self.sideSize))
+                square?.backgroundColor = UIColor(red: 0.91, green: 0.4, blue: 0.45, alpha: 1.0)
+                if let square = square {
+                    view.addSubview(square)
+                }
+    }
+
+    @IBAction func pushButton(_ sender: Any) {
+        if let safeAreaSize = safeAreaSize {
+            animateMovement(startPosition: (x: view.safeAreaLayoutGuide.layoutFrame.origin.x,
+                                            y: view.safeAreaLayoutGuide.layoutFrame.origin.y),
+                            finishPosition: (x: safeAreaSize.x,
+                                             y: view.safeAreaLayoutGuide.layoutFrame.origin.y))
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.animateMovement(startPosition: (x: safeAreaSize.x,
+                                                     y: self.view.safeAreaLayoutGuide.layoutFrame.origin.y),
+                                finishPosition: (x: safeAreaSize.x, y: safeAreaSize.y))
+            }
         }
     }
     
-//    func dimensions() -> (CGFloat, CGFloat) {
-//        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
-//        let safeAreaWidth = view.safeAreaLayoutGuide.layoutFrame.width
-//        
-//        return (safeAreaWidth, safeAreaHeight)
-//    }
-//
-//    @IBAction func pushButton(_ sender: Any) {
-//        
-//        let window = UIApplication.shared.windows.first
-//        let topPadding = window?.safeAreaInsets.top
-//        
-//        let safeAreaSize: (width: CGFloat, height: CGFloat)
-//        safeAreaSize = dimensions()
-//        startPosition = (x: 0, y: topPadding)
-//        finishPosition = (x: safeAreaSize.width, y: topPadding)
-//        animateMovement(startPosition: startPosition, finishPosition: finishPosition)
-//    }
-//    
-//    func animateMovement(startPosition: (x: CGFloat, y: CGFloat), finishPosition: (x: CGFloat, y: CGFloat)) {
-//        let animation = CABasicAnimation()
-//        animation.keyPath = "position.x"
-//        animation.fromValue = startPosition.x + self.sideSize / 2
-//        animation.toValue = finishPosition.x - self.sideSize / 2
-//        animation.duration = 1
-//        if let square = square {
-//            square.layer.add(animation, forKey: "basic")
-//            square.layer.position = CGPoint(x: finishPosition.x - self.sideSize / 2, y: self.finishPosition.y + self.sideSize / 2)
-//        }
-//    }
+    func animateMovement(startPosition: (x: CGFloat, y: CGFloat), finishPosition: (x: CGFloat, y: CGFloat)) {
+        let animation = CABasicAnimation()
+        animation.keyPath = "position.x"
+        animation.fromValue = startPosition.x + self.sideSize / 2
+        animation.toValue = finishPosition.x - self.sideSize / 2
+        animation.duration = 1
+        if let square = square {
+            square.layer.add(animation, forKey: "basic")
+            square.layer.position = CGPoint(x: finishPosition.x - self.sideSize / 2, y: finishPosition.y + self.sideSize / 2)
+        }
+    }
 }
