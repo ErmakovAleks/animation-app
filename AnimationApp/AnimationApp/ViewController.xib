@@ -35,7 +35,7 @@
                         </attributedString>
                     </buttonConfiguration>
                     <connections>
-                        <action selector="pushButton:" destination="-1" eventType="touchUpInside" id="mXG-s1-r4F"/>
+                        <action selector="pushButton:" destination="-1" eventType="touchUpInside" id="XgM-JX-kOz"/>
                     </connections>
                 </button>
             </subviews>
