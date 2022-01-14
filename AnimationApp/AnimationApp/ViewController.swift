@@ -9,31 +9,46 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let sideSize = 100.0
     var square = UIView()
     var safeAreaSize: CGSize?
+    var pushCounter = 0
+    var cornersCoordinates: [CGPoint] = []
+    let colors: [CGColor] = [UIColor.blue.cgColor, UIColor.red.cgColor, UIColor.cyan.cgColor, UIColor.magenta.cgColor]
+    let sideSize = 100.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.square.backgroundColor = UIColor(red: 0.91, green: 0.4, blue: 0.45, alpha: 1.0)
         view.addSubview(square)
-        print(self.square.frame.size)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.square.backgroundColor = UIColor(red: 0.91, green: 0.4, blue: 0.45, alpha: 1.0)
-        self.square  = UIView(frame: CGRect(
-            x: self.view.center.x - self.sideSize / 2,
-            y: self.view.center.y - self.sideSize / 2,
-            width: self.sideSize,
-            height: self.sideSize))
+        let area = self.view.safeAreaLayoutGuide.layoutFrame
+        self.safeAreaSize = area.size
+        self.square.frame = CGRect(x: area.origin.x, y: area.origin.y, width: self.sideSize, height: self.sideSize)
+        
+        if let safeAreaSize = safeAreaSize {
+            self.cornersCoordinates = [
+                CGPoint(x: area.origin.x + self.sideSize / 2, y: area.origin.y + self.sideSize / 2),
+                CGPoint(x: safeAreaSize.width - self.sideSize / 2, y: area.origin.y + self.sideSize / 2),
+                CGPoint(x: safeAreaSize.width - self.sideSize / 2, y: safeAreaSize.height),
+                CGPoint(x: area.origin.x + self.sideSize / 2, y: safeAreaSize.height)
+            ]
+        }
     }
     
     @IBAction func pushButton(_ sender: Any) {
-        UIView.animate(withDuration: 1, animations: {
-            self.square.layer.cornerRadius = self.sideSize / 2
-        })
+        self.pushCounter += 1
+        let i = self.pushCounter % cornersCoordinates.count
+        print("\(self.cornersCoordinates[i].x) \(self.cornersCoordinates[i].y)")
+        UIView.animate(withDuration: 1) {
+            self.square.frame = CGRect(x: self.cornersCoordinates[i].x,
+                                       y: self.cornersCoordinates[i].y,
+                                       width: self.sideSize,
+                                       height: self.sideSize)
+        }
     }
 }
