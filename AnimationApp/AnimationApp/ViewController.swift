@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var safeAreaSize: CGSize?
     var pushCounter = 0
     var cornersCoordinates: [CGPoint] = []
+    var startPosition = CGPoint()
     let colors: [CGColor] = [UIColor.blue.cgColor, UIColor.red.cgColor, UIColor.cyan.cgColor, UIColor.magenta.cgColor]
     let sideSize = 100.0
     
@@ -28,27 +29,38 @@ class ViewController: UIViewController {
         
         let area = self.view.safeAreaLayoutGuide.layoutFrame
         self.safeAreaSize = area.size
-        self.square.frame = CGRect(x: area.origin.x, y: area.origin.y, width: self.sideSize, height: self.sideSize)
+        startPosition.x = area.origin.x
+        startPosition.y = area.origin.y
         
         if let safeAreaSize = safeAreaSize {
             self.cornersCoordinates = [
-                CGPoint(x: area.origin.x + self.sideSize / 2, y: area.origin.y + self.sideSize / 2),
-                CGPoint(x: safeAreaSize.width - self.sideSize / 2, y: area.origin.y + self.sideSize / 2),
-                CGPoint(x: safeAreaSize.width - self.sideSize / 2, y: safeAreaSize.height),
-                CGPoint(x: area.origin.x + self.sideSize / 2, y: safeAreaSize.height)
+                CGPoint(x: area.origin.x, y: area.origin.y),
+                CGPoint(x: safeAreaSize.width - self.sideSize, y: area.origin.y),
+                CGPoint(x: safeAreaSize.width - self.sideSize, y: area.origin.y + safeAreaSize.height - self.sideSize),
+                CGPoint(x: area.origin.x, y: area.origin.y + safeAreaSize.height - self.sideSize)
             ]
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.square.frame = CGRect(x: startPosition.x, y: startPosition.y, width: self.sideSize, height: self.sideSize)
     }
     
     @IBAction func pushButton(_ sender: Any) {
         self.pushCounter += 1
         let i = self.pushCounter % cornersCoordinates.count
-        print("\(self.cornersCoordinates[i].x) \(self.cornersCoordinates[i].y)")
         UIView.animate(withDuration: 1) {
             self.square.frame = CGRect(x: self.cornersCoordinates[i].x,
                                        y: self.cornersCoordinates[i].y,
                                        width: self.sideSize,
                                        height: self.sideSize)
+            if i % 2 == 1 {
+                self.square.layer.cornerRadius = self.sideSize / 2
+            } else {
+                self.square.layer.cornerRadius = 0.0
+            }
         }
     }
 }
