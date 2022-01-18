@@ -9,6 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // MARK: -
+    // MARK: Public variables
+    
     var square = UIView()
     var safeAreaSize: CGSize?
     var pushCounter = 0
@@ -16,6 +19,9 @@ class ViewController: UIViewController {
     var startPosition = CGPoint()
     let colors: [CGColor] = [UIColor.blue.cgColor, UIColor.red.cgColor, UIColor.cyan.cgColor, UIColor.magenta.cgColor]
     let sideSize = 100.0
+    
+    // MARK: -
+    // MARK: Public functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
