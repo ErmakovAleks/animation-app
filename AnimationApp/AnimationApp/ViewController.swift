@@ -56,6 +56,9 @@ class ViewController: UIViewController {
                                        y: self.cornersCoordinates[i].y,
                                        width: self.sideSize,
                                        height: self.sideSize)
+            
+            self.square.layer.backgroundColor = self.colors[i]
+            
             if i % 2 == 1 {
                 self.square.layer.cornerRadius = self.sideSize / 2
             } else {
